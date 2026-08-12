@@ -1,111 +1,129 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import {
-  ApplyCtaBlock,
-  MediaPlaceholder,
-  SectionHeader,
-  SectionShell,
-  useRevealVariants,
-  type MediaTone,
-} from "./shared";
+import { motion } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { ApplyCtaBlock, SectionHeader, SectionShell, useRevealVariants } from './shared'
 
-const RESULTS = [
+const STORIES = [
   {
-    name: "Amara O.",
-    headline: "She quieted her inner critic",
-    quote:
-      "I stopped treating people-pleasing like a personality flaw. Once I saw the pattern, I could interrupt it.",
-    tone: "blush" as MediaTone,
-    stats: [
-      { label: "Before", value: "Constant yeses" },
-      { label: "After", value: "Cleaner boundaries" },
-    ],
+    name: 'Emily',
+    headline: 'My thoughts are not me',
+    support: 'Inner critic coaching',
+    src: '/Emily.mp4',
+    zoom: 1.44,
   },
   {
-    name: "Helen K.",
-    headline: "She understands her brain better",
-    quote:
-      "The science made it click. I wasn’t broken. I was running an old survival loop at work and at home.",
-    tone: "gold" as MediaTone,
-    stats: [
-      { label: "Before", value: "Self-doubt spiral" },
-      { label: "After", value: "Calmer self-trust" },
-    ],
+    name: 'Glory Onyema',
+    headline: 'She quieted her inner critic',
+    support: 'Hear how she rebuilt her confidence',
+    src: '/GloryOnyema.mp4',
+    zoom: 1.45,
   },
   {
-    name: "Priya S.",
-    headline: "She stopped performing for approval",
-    quote:
-      "Perfectionism used to feel like my edge. Now I can lead without burning myself out to look flawless.",
-    tone: "amber" as MediaTone,
-    stats: [
-      { label: "Before", value: "Over-functioning" },
-      { label: "After", value: "Steady decisions" },
-    ],
+    name: 'Client story',
+    headline: 'She understands her brain better',
+    support: 'Hear her story',
+    src: '/NEWM.mp4',
+    zoom: 1,
   },
-] as const;
+] as const
 
-export function ResultsSection() {
-  const { reduceMotion, container, item } = useRevealVariants();
+function StoryVideo({ src, label, zoom = 1 }: { src: string; label: string; zoom?: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  async function togglePlay() {
+    const video = videoRef.current
+    if (!video) return
+
+    if (video.paused) {
+      try {
+        await video.play()
+        setPlaying(true)
+      } catch {
+        setPlaying(false)
+      }
+      return
+    }
+
+    video.pause()
+    setPlaying(false)
+  }
 
   return (
-    <SectionShell className="bg-transparent">
-      <SectionHeader
-        badge="Results"
-        title="What shifts when the pattern breaks"
+    <div className='relative aspect-4/5 overflow-hidden bg-plum'>
+      <video
+        ref={videoRef}
+        src={src}
+        className='h-full w-full object-cover'
+        style={zoom !== 1 ? { transform: `scale(${zoom})` } : undefined}
+        playsInline
+        preload='metadata'
+        controls={playing}
+        onEnded={() => setPlaying(false)}
+        onPause={() => {
+          if (videoRef.current?.ended) return
+          setPlaying(false)
+        }}
+        onPlay={() => setPlaying(true)}
+        aria-label={label}
       />
 
+      {!playing && (
+        <button
+          type='button'
+          onClick={() => {
+            void togglePlay()
+          }}
+          className='absolute inset-0 flex items-center justify-center bg-plum/20 transition-colors hover:bg-plum/30'
+          aria-label={`Play ${label}`}
+        >
+          <span className='flex h-14 w-14 items-center justify-center rounded-full bg-plum/75 shadow-[0_8px_24px_rgba(61,24,48,0.3)] backdrop-blur-[2px]'>
+            <svg viewBox='0 0 24 24' aria-hidden='true' className='ml-0.5 h-6 w-6 fill-cream'>
+              <path d='M8 5.14v13.72L19 12 8 5.14z' />
+            </svg>
+          </span>
+        </button>
+      )}
+    </div>
+  )
+}
+
+export function ResultsSection() {
+  const { reduceMotion, container, item } = useRevealVariants()
+
+  return (
+    <SectionShell className='bg-transparent'>
+      <SectionHeader badge='Client stories' title='What shifts when the pattern breaks' />
+
       <motion.div
-        className="mt-12 grid items-stretch gap-5 md:grid-cols-3"
+        className='mt-12 grid items-stretch gap-5 md:grid-cols-3'
         variants={container}
-        initial="hidden"
-        whileInView="show"
+        initial='hidden'
+        whileInView='show'
         viewport={{ once: true, amount: 0.2 }}
       >
-        {RESULTS.map((result) => (
+        {STORIES.map(story => (
           <motion.article
-            key={result.name}
+            key={story.src}
             variants={item}
             whileHover={reduceMotion ? undefined : { y: -4 }}
-            transition={{ type: "spring", stiffness: 320, damping: 24 }}
-            className="flex h-full flex-col overflow-hidden rounded-3xl border border-gold-ink/15 bg-white shadow-[0_1px_0_rgba(61,24,48,0.04)]"
+            transition={{ type: 'spring', stiffness: 320, damping: 24 }}
+            className='flex h-full flex-col overflow-hidden rounded-3xl border border-gold-ink/15 bg-white shadow-[0_1px_0_rgba(61,24,48,0.04)]'
           >
-            <div className="relative aspect-square overflow-hidden">
-              <MediaPlaceholder
-                tone={result.tone}
-                label={`${result.name} transformation visual`}
-              />
-            </div>
-            <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-              <p className="text-sm text-gold-ink">{result.name}</p>
-              <h3 className="text-xl font-semibold tracking-[-0.02em] text-plum">
-                {result.headline}
-              </h3>
-              <p className="text-[15px] leading-relaxed text-plum-soft">
-                {result.quote}
-              </p>
-              <div className="mt-auto grid grid-cols-2 items-stretch gap-2.5 pt-2">
-                {result.stats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex h-full min-h-[4.75rem] flex-col rounded-2xl border border-gold-ink/10 bg-cream px-3 py-3"
-                  >
-                    <p className="text-[11px] text-gold-ink">{stat.label}</p>
-                    <p className="mt-1 text-base font-semibold leading-snug tracking-[-0.02em] text-plum">
-                      {stat.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
+            <StoryVideo src={story.src} label={story.headline} zoom={story.zoom} />
+            <div className='flex flex-1 flex-col gap-2 p-5 sm:p-6'>
+              <p className='text-sm text-gold-ink'>{story.name}</p>
+              <h3 className='text-xl font-semibold tracking-[-0.02em] text-plum'>{story.headline}</h3>
+              <p className='text-[15px] leading-relaxed text-plum-soft'>{story.support}</p>
             </div>
           </motion.article>
         ))}
       </motion.div>
 
-      <div className="mt-12">
+      <div className='mt-12'>
         <ApplyCtaBlock />
       </div>
     </SectionShell>
-  );
+  )
 }

@@ -10,7 +10,6 @@ import { ProblemSection } from "@/components/vsl/ProblemSection";
 import { ProcessSection } from "@/components/vsl/ProcessSection";
 import { ResultsSection } from "@/components/vsl/ResultsSection";
 import { SiteFooter } from "@/components/vsl/SiteFooter";
-import { TestimonialsSection } from "@/components/vsl/TestimonialsSection";
 import { WhoForSection } from "@/components/vsl/WhoForSection";
 
 export default function Home() {
@@ -27,7 +26,6 @@ export default function Home() {
       <LogosSection />
       {/* 5. Proof stack */}
       <ResultsSection />
-      <TestimonialsSection />
       {/* 6. Offer path */}
       <ProcessSection />
       <PricingSection />
