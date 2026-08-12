@@ -8,21 +8,21 @@ const STORIES = [
   {
     name: 'Emily',
     headline: 'My thoughts are not me',
-    support: 'Inner critic coaching',
+    support: 'How she stopped treating her inner critic like the truth',
     src: '/Emily.mp4',
     zoom: 1.44,
   },
   {
     name: 'Glory Onyema',
     headline: 'She quieted her inner critic',
-    support: 'Hear how she rebuilt her confidence',
+    support: 'Hear how she rebuilt confidence without performing for approval',
     src: '/GloryOnyema.mp4',
     zoom: 1.45,
   },
   {
     name: 'Client story',
     headline: 'She understands her brain better',
-    support: 'Hear her story',
+    support: 'Why the stuckness made sense once she saw the pattern',
     src: '/NEWM.mp4',
     zoom: 1,
   },
@@ -94,7 +94,10 @@ export function ResultsSection() {
 
   return (
     <SectionShell className='bg-transparent'>
-      <SectionHeader badge='Client stories' title='What shifts when the pattern breaks' />
+      <SectionHeader
+        badge="Client stories"
+        title="Women who were done managing the symptoms"
+      />
 
       <motion.div
         className='mt-12 grid items-stretch gap-5 md:grid-cols-3'
