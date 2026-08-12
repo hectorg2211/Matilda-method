@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --plum: #3d1830;
+  --plum-soft: #5c3a4c;
+  /* Brand golds from matildamethod.com — use on dark surfaces only */
+  --gold: #cda96a;
+  --gold-strong: #c9a24b;
+  --gold-light: #f3d9b8;
+  /* Accessible gold ink for text/icons on cream (WCAG AA) */
+  --gold-ink: #7a5c28;
+  --cream: #faf3ea;
+  --background: var(--cream);
+  --foreground: var(--plum);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-plum: var(--plum);
+  --color-plum-soft: var(--plum-soft);
+  --color-gold: var(--gold);
+  --color-gold-strong: var(--gold-strong);
+  --color-gold-light: var(--gold-light);
+  --color-gold-ink: var(--gold-ink);
+  --color-cream: var(--cream);
+  --font-sans: var(--font-lora);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-lora), ui-serif, Georgia, serif;
+}
+
+/* Soft paper atmosphere: warm washes + visible grain overlay */
+.page-texture {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(
+      ellipse 90% 55% at 12% -5%,
+      color-mix(in srgb, var(--gold-light) 75%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 70% 45% at 92% 8%,
+      color-mix(in srgb, var(--plum-soft) 10%, transparent),
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 80% 50% at 50% 105%,
+      color-mix(in srgb, var(--gold) 16%, transparent),
+      transparent 55%
+    );
+  background-attachment: fixed;
+}
+
+.page-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: url("/noise.png");
+  background-repeat: repeat;
+  background-size: 280px 280px;
+  mix-blend-mode: soft-light;
+}
+
+.page-texture > * {
+  position: relative;
+  z-index: 1;
+}
+
+.field-input {
+  width: 100%;
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--gold-light) 45%, white);
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  color: var(--plum);
+  outline: none;
+}
+
+.field-input::placeholder {
+  color: color-mix(in srgb, var(--plum-soft) 70%, transparent);
+}
+
+.field-input:focus {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--plum) 25%, transparent);
 }
