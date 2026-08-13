@@ -11,7 +11,7 @@ const lora = Lora({
 export const metadata: Metadata = {
   title: "Matilda Method | Why capable women stay stuck",
   description:
-    "Watch the Matilda Method VSL: why high-performing women stay stuck in people-pleasing and self-doubt, and what a neuroscience-backed pattern shift looks like in practice. Book a 15-minute clarity call.",
+    "Why capable women stay stuck, even when they know what they should be doing. Watch the 20-minute Matilda Method video, then book a private clarity call for 6-week 1:1 coaching.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

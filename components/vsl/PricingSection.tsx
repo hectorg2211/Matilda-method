@@ -2,131 +2,162 @@
 
 import { motion } from "framer-motion";
 import {
-  SectionHeader,
+  CLARITY_CTA,
+  CLARITY_HREF,
+  MotionButton,
+  PRIVATE_PLACES,
   SectionShell,
   useRevealVariants,
 } from "./shared";
 
-const PLANS = [
-  {
-    badge: "Primary path",
-    name: "Clarity call into one-to-one",
-    price: "Start here",
-    description:
-      "Book the call first. If it is a fit, you continue into one-to-one coaching with a clearer read on your pattern.",
-    cta: "Book a clarity call",
-    features: [
-      "15-minute clarity call",
-      "Pattern named in plain language",
-      "Honest fit check either way",
-      "Path into personal coaching",
-      "Available year-round",
-      "Small booking fee to hold the slot",
-    ],
-  },
-  {
-    badge: "Group cohort",
-    name: "People-pleasing reset",
-    price: "$399",
-    description:
-      "A six-week live cohort for women ready to stop people-pleasing together, with weekly practice and support.",
-    cta: "Join the waitlist",
-    features: [
-      "6 live sessions, 90 minutes each",
-      "Neuroscience teaching and coaching",
-      "Weekly practices you can use right away",
-      "Cohort accountability",
-      "Limited seats per round",
-      "Option to continue 1:1 afterwards",
-    ],
-  },
+const INCLUDES = [
+  "6 private 1:1 coaching sessions",
+  "Personalised coaching goals and action plan",
+  "Between-session reflection and implementation",
+  "Brain-informed coaching tools and mental fitness practices",
+  "Focus on identity, confidence, boundaries, decision-making and leadership where relevant",
 ] as const;
 
-function CheckIcon() {
-  return (
-    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-light/80 text-plum">
-      <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" aria-hidden="true">
-        <path
-          d="M3.5 8.5l3 3 6-6.5"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </span>
-  );
-}
-
 export function PricingSection() {
-  const { reduceMotion, container, item } = useRevealVariants();
+  const { container, item } = useRevealVariants();
 
   return (
-    <SectionShell id="pricing" className="bg-transparent">
-      <SectionHeader
-        badge="Ways to work together"
-        title="Two ways to work with Matilda"
-      />
-
-      <motion.p
-        className="mx-auto mt-5 max-w-2xl text-center text-[15px] leading-relaxed text-plum-soft sm:text-base"
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.55 }}
-      >
-        Most women start with the clarity call. The group cohort is there when
-        you want to do the work with other women.
-      </motion.p>
-
+    <SectionShell
+      id="offer"
+      className="bg-plum text-cream pb-20 sm:pb-24 md:pb-20"
+    >
       <motion.div
-        className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2"
+        className="grid gap-10 lg:grid-cols-3 lg:gap-8 lg:items-start"
         variants={container}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.15 }}
       >
-        {PLANS.map((plan) => (
-          <motion.article
-            key={plan.name}
-            variants={item}
-            whileHover={reduceMotion ? undefined : { y: -4 }}
-            className="relative flex flex-col rounded-[1.75rem] border border-gold-ink/15 bg-white p-6 pt-8 shadow-[0_1px_0_rgba(61,24,48,0.04)] sm:p-8"
+        <motion.div variants={item}>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-gold">
+            Private 1:1 coaching
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] sm:text-[2.1rem]">
+            6 Weeks to Break the Pattern
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-cream/80">
+            Personalised coaching for women ready to stop managing the same
+            patterns and start responding with greater clarity, confidence and
+            self-trust.
+          </p>
+          <ul className="mt-6 space-y-3">
+            {INCLUDES.map((line) => (
+              <li
+                key={line}
+                className="flex items-start gap-3 text-[14px] leading-relaxed text-cream/80"
+              >
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold">
+                  <svg
+                    viewBox="0 0 16 16"
+                    className="h-3 w-3"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3.5 8.5l3 3 6-6.5"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={CLARITY_HREF}
+            className="btn-link mt-7 text-[14px] text-gold underline decoration-gold/40 hover:text-cream"
           >
-            <span className="absolute right-5 top-0 -translate-y-1/2 rounded-full bg-gold-light/70 px-3 py-1 text-[12px] font-medium text-plum-soft">
-              {plan.badge}
-            </span>
-            <h3 className="text-xl font-semibold tracking-[-0.02em] text-plum">
-              {plan.name}
-            </h3>
-            <p className="mt-3 text-4xl font-semibold tracking-[-0.03em] text-plum sm:text-5xl">
-              {plan.price}
-            </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-plum-soft">
-              {plan.description}
-            </p>
-            <a
-              href="#apply"
-              className="mt-7 inline-flex h-12 items-center justify-center rounded-full bg-plum px-6 text-[15px] font-semibold text-cream transition-transform hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum"
+            {CLARITY_CTA}
+            <span aria-hidden="true">→</span>
+          </a>
+        </motion.div>
+
+        <motion.div
+          id="investment"
+          variants={item}
+          className="scroll-mt-28 rounded-[1.75rem] border border-gold/40 bg-plum-soft/30 px-6 py-8 text-center sm:px-8"
+        >
+          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-gold">
+            Private coaching investment
+          </p>
+          <p className="mt-4 font-semibold tracking-[-0.03em] text-5xl text-cream sm:text-6xl">
+            £1,497
+          </p>
+          <p className="mt-3 text-[15px] text-cream/75">Payment plan available</p>
+          <div className="mt-6 flex items-center justify-center gap-1.5" aria-hidden="true">
+            {Array.from({ length: PRIVATE_PLACES }).map((_, i) => (
+              <span
+                key={i}
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-gold/35 text-gold"
+              >
+                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
+                  <path
+                    d="M12 12a3.25 3.25 0 100-6.5 3.25 3.25 0 000 6.5zM5.5 19a6.5 6.5 0 0113 0"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            ))}
+          </div>
+          <p className="mt-3 text-[14px] font-medium text-cream">
+            {PRIVATE_PLACES} private coaching places currently available
+          </p>
+          <p className="mt-2 text-[13px] leading-relaxed text-cream/70">
+            Applications are currently open for {PRIVATE_PLACES} private
+            coaching places.
+          </p>
+        </motion.div>
+
+        <motion.div
+          id="apply"
+          variants={item}
+          className="scroll-mt-28 flex flex-col lg:pt-1"
+        >
+          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-gold">
+            Ready for the next step?
+          </p>
+          <h3 className="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-[1.75rem]">
+            Let’s find the pattern that’s keeping you stuck.
+          </h3>
+          <p className="mt-4 text-[15px] leading-relaxed text-cream/80">
+            In a 30 minute private clarity call, we’ll look at what’s happening
+            for you, what you want to change and whether six weeks of private
+            coaching is the right fit, both ways.
+          </p>
+          <MotionButton
+            href={CLARITY_HREF}
+            variant="gold"
+            className="mt-7 h-12 rounded-full px-7 text-[14px] uppercase tracking-[0.04em] sm:h-[3.25rem]"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              aria-hidden="true"
             >
-              {plan.cta}
-            </a>
-            <p className="mt-7 text-[12px] uppercase tracking-[0.08em] text-gold-ink">
-              What&apos;s included
-            </p>
-            <ul className="mt-3 space-y-3">
-              {plan.features.map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-start gap-3 text-[15px] text-plum-soft"
-                >
-                  <CheckIcon />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.article>
-        ))}
+              <path
+                d="M7 4v2M17 4v2M5 9h14M6.5 6h11A1.5 1.5 0 0119 7.5v11A1.5 1.5 0 0117.5 20h-11A1.5 1.5 0 015 18.5v-11A1.5 1.5 0 016.5 6z"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+              />
+            </svg>
+            {CLARITY_CTA}
+          </MotionButton>
+          <p className="mt-4 text-[13px] text-cream/65">
+            {PRIVATE_PLACES} places open · Clarity call is 30 minutes
+          </p>
+        </motion.div>
       </motion.div>
     </SectionShell>
   );

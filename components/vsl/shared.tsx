@@ -35,14 +35,12 @@ export function MediaPlaceholder({
   );
 }
 
-export const AVATARS = [
-  { tone: "plum" as const, alt: "Client portrait 1" },
-  { tone: "gold" as const, alt: "Client portrait 2" },
-  { tone: "dusk" as const, alt: "Client portrait 3" },
-  { tone: "blush" as const, alt: "Client portrait 4" },
-] as const;
-
 export const easeOut = [0.22, 1, 0.36, 1] as const;
+
+export const CLARITY_CTA = "Book your clarity call";
+export const CLARITY_HREF = "#apply";
+export const SUBSTACK_URL = "https://matildamethod.substack.com";
+export const PRIVATE_PLACES = 5;
 
 export function useRevealVariants() {
   const reduceMotion = useReducedMotion() ?? false;
@@ -81,7 +79,7 @@ export function SectionShell({
   return (
     <section
       id={id}
-      className={`relative px-5 py-16 sm:px-8 sm:py-24 ${className}`}
+      className={`relative scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24 ${className}`}
     >
       <div className="relative mx-auto w-full max-w-6xl">{children}</div>
     </section>
@@ -123,14 +121,56 @@ export function SectionHeader({
   );
 }
 
+type BtnVariant = "primary" | "secondary" | "gold";
+
+const BTN_VARIANT: Record<BtnVariant, string> = {
+  primary: "btn btn-primary",
+  secondary: "btn btn-secondary",
+  gold: "btn btn-gold",
+};
+
+export function MotionButton({
+  href,
+  children,
+  variant = "primary",
+  className = "",
+  target,
+  rel,
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: BtnVariant;
+  className?: string;
+  target?: string;
+  rel?: string;
+}) {
+  const reduceMotion = useReducedMotion() ?? false;
+
+  return (
+    <motion.a
+      href={href}
+      target={target}
+      rel={rel}
+      whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+      whileTap={reduceMotion ? undefined : { scale: 0.975 }}
+      transition={{ type: "spring", stiffness: 460, damping: 26 }}
+      className={`${BTN_VARIANT[variant]} ${className}`}
+    >
+      <span className="relative z-[1] inline-flex items-center justify-center gap-[0.55rem]">
+        {children}
+      </span>
+    </motion.a>
+  );
+}
+
 export function ApplyCtaBlock({
-  label = "Book a clarity call",
-  href = "#apply",
+  label = CLARITY_CTA,
+  href = CLARITY_HREF,
 }: {
   label?: string;
   href?: string;
 }) {
-  const { reduceMotion, container, item } = useRevealVariants();
+  const { container, item } = useRevealVariants();
 
   return (
     <motion.div
@@ -140,16 +180,14 @@ export function ApplyCtaBlock({
       whileInView="show"
       viewport={{ once: true, amount: 0.5 }}
     >
-      <motion.a
-        href={href}
-        variants={item}
-        whileHover={reduceMotion ? undefined : { scale: 1.03, y: -1 }}
-        whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 420, damping: 24 }}
-        className="inline-flex h-12 items-center justify-center rounded-full bg-plum px-10 text-[15px] font-semibold tracking-[-0.01em] text-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum sm:h-[3.25rem] sm:px-12 sm:text-base"
-      >
-        {label}
-      </motion.a>
+      <motion.div variants={item}>
+        <MotionButton
+          href={href}
+          className="h-12 rounded-full px-8 text-[15px] sm:h-[3.25rem] sm:px-12 sm:text-base"
+        >
+          {label}
+        </MotionButton>
+      </motion.div>
     </motion.div>
   );
 }

@@ -5,34 +5,19 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
-import { AVATARS, MediaPlaceholder } from "./shared";
+import {
+  CLARITY_CTA,
+  CLARITY_HREF,
+  MotionButton,
+  easeOut,
+} from "./shared";
 import { VideoPlayer } from "./VideoPlayer";
 
-const easeOut = [0.22, 1, 0.36, 1] as const;
-
-function Stars({ reduceMotion }: { reduceMotion: boolean }) {
-  return (
-    <div className="flex items-center gap-0.5" aria-label="5 out of 5 stars">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <motion.svg
-          key={index}
-          viewBox="0 0 20 20"
-          aria-hidden="true"
-          className="h-3.5 w-3.5 fill-gold-ink"
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.4, y: 4 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            delay: 0.95 + index * 0.06,
-            duration: 0.35,
-            ease: easeOut,
-          }}
-        >
-          <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.27 5.06 16.7l.94-5.5-4-3.9 5.53-.8L10 1.5z" />
-        </motion.svg>
-      ))}
-    </div>
-  );
-}
+const DISCOVERIES = [
+  "Why knowing you should say no doesn’t necessarily make saying no easier.",
+  "Why successful women can still second-guess themselves despite years of evidence that they’re capable.",
+  "The pattern I look for before trying to change the behaviour.",
+] as const;
 
 export function HeroSection() {
   const reduceMotion = useReducedMotion() ?? false;
@@ -56,121 +41,162 @@ export function HeroSection() {
     },
   };
 
-  const videoItem: Variants = {
-    hidden: reduceMotion
-      ? { opacity: 1, y: 0, scale: 1 }
-      : { opacity: 0, y: 28, scale: 0.97 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.85, ease: easeOut },
-    },
-  };
-
   return (
-    <section className="relative overflow-hidden bg-transparent px-5 pb-16 pt-10 sm:px-8 sm:pb-24 sm:pt-14">
-      <motion.div
-        className="relative mx-auto flex w-full max-w-[920px] flex-col items-center text-center"
-        variants={container}
-        initial="hidden"
-        animate="show"
+    <>
+      <section
+        id="top"
+        className="relative isolate min-h-[min(78vh,720px)] scroll-mt-24 overflow-hidden bg-cream pb-6 lg:min-h-[min(84vh,760px)] lg:pb-8"
       >
-        <motion.p
-          variants={item}
-          className="flex items-center gap-2 text-[13px] font-medium tracking-[-0.01em] text-gold-ink sm:text-sm"
-        >
-          <motion.span
-            className="inline-block h-1.5 w-1.5 rounded-full bg-plum"
-            initial={reduceMotion ? false : { scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.15, type: "spring", stiffness: 420, damping: 18 }}
+        {/* Full-bleed portrait — right half on desktop, soft fade into cream */}
+        <div className="pointer-events-none absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/Matilda/hero-matilda.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-[48%_40%] sm:object-[54%_38%] lg:left-[44%] lg:w-[56%] lg:object-[22%_45%]"
+            fetchPriority="high"
           />
-          For high-performing women who still feel stuck
-        </motion.p>
-
-        <motion.h1
-          variants={item}
-          className="mt-5 max-w-[20ch] text-balance text-[2rem] font-semibold leading-[1.15] tracking-[-0.02em] text-plum sm:mt-6 sm:max-w-[26ch] sm:text-[2.75rem] sm:leading-[1.12] md:max-w-[28ch] md:text-[3.15rem]"
-        >
-          Why capable women stay stuck, and the{" "}
-          <motion.span
-            className="text-gold-ink"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.45, duration: 0.6, ease: easeOut }}
-          >
-            pattern shift that helps
-          </motion.span>
-        </motion.h1>
-
-        <motion.p
-          variants={item}
-          className="mt-5 max-w-[40rem] text-pretty text-[15px] leading-relaxed tracking-[-0.01em] text-plum-soft sm:mt-6 sm:text-[1.05rem] sm:leading-7"
-        >
-          In under 10 minutes, Matilda names the loops behind people-pleasing
-          and self-doubt, then shows what to do if you are tired of managing
-          the symptoms.
-        </motion.p>
-
-        <motion.div variants={videoItem} className="mt-9 w-full sm:mt-11">
-          <VideoPlayer />
-        </motion.div>
-
-        <motion.a
-          href="#apply"
-          variants={item}
-          whileHover={reduceMotion ? undefined : { scale: 1.03, y: -1 }}
-          whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 420, damping: 24 }}
-          className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-plum px-10 text-[15px] font-semibold tracking-[-0.01em] text-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum sm:mt-9 sm:h-[3.25rem] sm:px-12 sm:text-base"
-        >
-          Book a clarity call
-        </motion.a>
-
-        <motion.p
-          variants={item}
-          className="mt-3 text-[13px] text-gold-ink"
-        >
-          15 minutes, a clear next step, and no pressure pitch
-        </motion.p>
+          {/* Cream wash so copy stays readable and image feels blended */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,243,234,0.92)_0%,rgba(250,243,234,0.55)_38%,rgba(250,243,234,0.88)_100%)] lg:bg-[linear-gradient(90deg,#faf3ea_0%,#faf3ea_46%,rgba(250,243,234,0.9)_56%,rgba(250,243,234,0.35)_68%,transparent_82%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(250,243,234,0.95))] lg:hidden" />
+        </div>
 
         <motion.div
-          variants={item}
-          className="mt-6 flex items-center gap-3"
+          className="relative mx-auto flex min-h-[min(78vh,720px)] w-full max-w-6xl flex-col justify-center px-5 py-10 sm:px-8 sm:py-12 lg:min-h-[min(84vh,760px)] lg:py-14"
+          variants={container}
+          initial="hidden"
+          animate="show"
         >
-          <div className="flex -space-x-2.5">
-            {AVATARS.map((avatar, index) => (
-              <motion.span
-                key={avatar.tone}
-                className="relative inline-block h-8 w-8 overflow-hidden rounded-full ring-2 ring-cream"
-                initial={reduceMotion ? false : { opacity: 0, x: -8, scale: 0.7 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{
-                  delay: 0.8 + index * 0.07,
-                  type: "spring",
-                  stiffness: 380,
-                  damping: 22,
-                }}
-              >
-                <MediaPlaceholder tone={avatar.tone} label={avatar.alt} />
-              </motion.span>
-            ))}
-          </div>
-
-          <div className="flex flex-col items-start gap-1">
-            <Stars reduceMotion={reduceMotion} />
+          <div className="relative max-w-xl lg:max-w-[34rem]">
             <motion.p
-              className="text-[12px] leading-none tracking-[-0.01em] text-gold-ink"
-              initial={reduceMotion ? false : { opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.4, ease: easeOut }}
+              variants={item}
+              className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-ink sm:text-[12px]"
             >
-              Trusted by women doing this work
+              For high-performing women who still feel stuck
+            </motion.p>
+
+            <motion.h1
+              variants={item}
+              className="mt-4 text-balance text-[1.85rem] font-semibold leading-[1.14] tracking-[-0.02em] text-plum sm:text-[2.55rem] sm:leading-[1.12] md:text-[3rem]"
+            >
+              Why capable women stay stuck, even when they{" "}
+              <em className="font-semibold italic text-gold-ink">
+                know exactly what they should be doing.
+              </em>
+            </motion.h1>
+
+            <motion.p
+              variants={item}
+              className="mt-5 max-w-[34rem] text-pretty text-[15px] leading-relaxed text-plum-soft sm:text-[1.05rem] sm:leading-7"
+            >
+              If you’ve tried boundaries, positive thinking or simply telling
+              yourself to “stop overthinking”, the problem may not be what you
+              think.
+            </motion.p>
+
+            <motion.div
+              variants={item}
+              className="mt-7 rounded-2xl border border-gold-ink/15 bg-cream/80 px-5 py-5 backdrop-blur-[2px] sm:px-6 sm:py-6"
+            >
+              <p className="text-[15px] font-semibold text-plum">
+                In this 20-minute video, discover:
+              </p>
+              <ul className="mt-3 space-y-2.5">
+                {DISCOVERIES.map((line) => (
+                  <li
+                    key={line}
+                    className="flex items-start gap-3 text-[14px] leading-relaxed text-plum-soft sm:text-[15px]"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-light/80 text-plum">
+                      <svg
+                        viewBox="0 0 16 16"
+                        className="h-3 w-3"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M3.5 8.5l3 3 6-6.5"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div
+              variants={item}
+              className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center"
+            >
+              <MotionButton
+                href="#vsl"
+                className="group h-12 rounded-full px-7 text-[13px] uppercase tracking-[0.04em] sm:h-[3.25rem] sm:px-8 sm:text-[14px]"
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-cream/35 transition-transform duration-300 group-hover:scale-110">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="ml-0.5 h-3 w-3 fill-cream"
+                    aria-hidden="true"
+                  >
+                    <path d="M8 5.14v13.72L19 12 8 5.14z" />
+                  </svg>
+                </span>
+                Watch video
+              </MotionButton>
+              <MotionButton
+                href={CLARITY_HREF}
+                variant="secondary"
+                className="h-12 rounded-full px-6 text-[14px] sm:h-[3.25rem]"
+              >
+                {CLARITY_CTA}
+              </MotionButton>
+            </motion.div>
+
+            <motion.p
+              variants={item}
+              className="mt-4 text-[13px] text-gold-ink"
+            >
+              Real client stories below
             </motion.p>
           </div>
+
+          <motion.div
+            variants={item}
+            className="pointer-events-none absolute bottom-8 right-5 hidden max-w-[15.5rem] rounded-2xl border border-gold-ink/20 bg-cream/95 px-5 py-4 shadow-[0_12px_32px_rgba(61,24,48,0.12)] backdrop-blur-sm lg:bottom-16 lg:right-8 lg:block xl:right-0"
+          >
+            <p className="text-[2rem] leading-none text-gold" aria-hidden="true">
+              “
+            </p>
+            <p className="-mt-2 text-[15px] font-semibold leading-snug text-plum">
+              You’re not weak. You’re running a pattern.
+            </p>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </section>
+
+        {/* Mobile quote under hero copy */}
+        <div className="relative mx-auto max-w-6xl px-5 pb-4 sm:px-8 lg:hidden">
+          <div className="rounded-2xl border border-gold-ink/20 bg-cream/95 px-5 py-4 shadow-[0_10px_28px_rgba(61,24,48,0.08)]">
+            <p className="text-[2rem] leading-none text-gold" aria-hidden="true">
+              “
+            </p>
+            <p className="-mt-2 text-[15px] font-semibold leading-snug text-plum">
+              You’re not weak. You’re running a pattern.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative bg-transparent px-5 pb-10 pt-10 sm:px-8 sm:pb-12 sm:pt-14">
+        <div id="vsl" className="mx-auto w-full max-w-6xl scroll-mt-24">
+          <VideoPlayer />
+        </div>
+      </section>
+    </>
   );
 }

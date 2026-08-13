@@ -27,10 +27,46 @@
   --font-sans: var(--font-lora);
 }
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--plum) color-mix(in srgb, var(--cream) 80%, var(--gold-light));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-lora), ui-serif, Georgia, serif;
+}
+
+/* WebKit scrollbar — plum thumb on cream track */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--cream) 85%, var(--gold-light));
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--plum) 88%, var(--gold));
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--cream) 85%, var(--gold-light));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--plum);
+}
+
+::-webkit-scrollbar-corner {
+  background: color-mix(in srgb, var(--cream) 85%, var(--gold-light));
 }
 
 /* Soft paper atmosphere: warm washes + visible grain overlay */
@@ -91,4 +127,167 @@ body {
 
 .field-input:focus {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--plum) 25%, transparent);
+}
+
+/* Button system — refined lift, sheen, press */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  overflow: hidden;
+  isolation: isolate;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease;
+  will-change: transform;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(250, 243, 234, 0.22) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:hover::before {
+  transform: translateX(120%);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 0.12s;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--plum);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  background: var(--plum);
+  color: var(--cream);
+  box-shadow: 0 1px 0 rgba(61, 24, 48, 0.08);
+}
+
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--plum) 92%, white);
+  box-shadow:
+    0 10px 24px rgba(61, 24, 48, 0.18),
+    0 2px 0 rgba(61, 24, 48, 0.06);
+}
+
+.btn-primary:active {
+  box-shadow: 0 2px 8px rgba(61, 24, 48, 0.12);
+}
+
+.btn-secondary {
+  background: color-mix(in srgb, var(--cream) 70%, transparent);
+  color: var(--plum);
+  border: 1px solid color-mix(in srgb, var(--plum) 18%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.btn-secondary::before {
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(205, 169, 106, 0.28) 45%,
+    transparent 70%
+  );
+}
+
+.btn-secondary:hover {
+  background: var(--cream);
+  border-color: color-mix(in srgb, var(--plum) 32%, transparent);
+  box-shadow: 0 8px 20px rgba(61, 24, 48, 0.08);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--plum);
+  box-shadow: 0 1px 0 rgba(61, 24, 48, 0.06);
+}
+
+.btn-gold::before {
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(250, 243, 234, 0.45) 45%,
+    transparent 70%
+  );
+}
+
+.btn-gold:hover {
+  background: color-mix(in srgb, var(--gold) 88%, white);
+  box-shadow:
+    0 10px 24px rgba(122, 92, 40, 0.22),
+    0 2px 0 rgba(61, 24, 48, 0.05);
+}
+
+.btn-gold:focus-visible {
+  outline-color: var(--gold-ink);
+}
+
+.btn-nav {
+  border-radius: 0.45rem;
+}
+
+.btn-nav:hover {
+  transform: translateY(-1px);
+}
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  text-underline-offset: 4px;
+  transition:
+    color 0.25s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    gap 0.25s ease;
+}
+
+.btn-link:hover {
+  transform: translateX(2px);
+  gap: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn::before,
+  .btn-link {
+    transition: none !important;
+  }
+
+  .btn:hover,
+  .btn:active,
+  .btn-link:hover {
+    transform: none;
+  }
+
+  .btn:hover::before {
+    transform: none;
+  }
 }
