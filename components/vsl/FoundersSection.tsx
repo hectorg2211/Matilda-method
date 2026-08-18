@@ -59,10 +59,10 @@ export function FoundersSection() {
             </p>
 
             <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-plum-soft">
-              I combine extensive NHS leadership experience, coaching and
-              brain-informed approaches to help high-performing women recognise
-              invisible patterns, build self-trust and respond differently in
-              the moments that matter.
+              I draw on years in NHS leadership, coaching, and brain-informed
+              practice. My work helps high-performing women spot the patterns
+              they keep missing, rebuild self-trust, and respond differently
+              when it counts.
             </p>
 
             <ul className="mt-7 grid gap-2.5 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-2.5">
@@ -103,8 +103,7 @@ export function FoundersSection() {
               Thoughts That Transform
             </p>
             <p className="mt-1 text-[15px] font-semibold tracking-[-0.01em] text-plum sm:text-base">
-              Short essays on identity, mental fitness and leadership on
-              Substack.
+              Essays on identity, mental fitness, and leadership on Substack.
             </p>
           </div>
           <MotionButton

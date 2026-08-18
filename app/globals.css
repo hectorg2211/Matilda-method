@@ -148,6 +148,10 @@ body {
     border-color 0.28s ease,
     color 0.28s ease;
   will-change: transform;
+  cursor: pointer;
+  border: none;
+  font: inherit;
+  background: none;
 }
 
 .btn::before {
@@ -272,6 +276,44 @@ body {
 .btn-link:hover {
   transform: translateX(2px);
   gap: 0.5rem;
+}
+
+button.btn-link {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.cal-booker {
+  overflow: hidden;
+}
+
+.cal-booker cal-inline,
+.cal-booker iframe {
+  display: block;
+  width: 100% !important;
+}
+
+/* Clip Cal.com’s “powered by” strip; collapse the leftover space */
+.cal-booker cal-inline {
+  min-height: 34rem;
+  clip-path: inset(0 0 4.75rem 0);
+  margin-bottom: -4.75rem;
+}
+
+@media (max-width: 767px) {
+  .cal-booker cal-inline {
+    min-height: 36rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .cal-booker cal-inline {
+    min-height: 38rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

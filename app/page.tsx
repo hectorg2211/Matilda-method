@@ -6,7 +6,6 @@ import { ProblemSection } from "@/components/vsl/ProblemSection";
 import { ResultsSection } from "@/components/vsl/ResultsSection";
 import { SiteFooter } from "@/components/vsl/SiteFooter";
 import { SiteNav } from "@/components/vsl/SiteNav";
-import { StickyCta } from "@/components/vsl/StickyCta";
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
       <FoundersSection />
       <PricingSection />
       <SiteFooter />
-      <StickyCta />
     </main>
   );
 }

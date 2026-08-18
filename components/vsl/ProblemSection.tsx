@@ -6,7 +6,7 @@ import { SectionShell, useRevealVariants } from "./shared";
 const PAINS = [
   {
     title: "You keep saying yes when you mean no",
-    body: "At work, at home, with friends. Each yes drains energy you don’t have left.",
+    body: "At work, at home, with friends. Each yes costs energy you do not have left.",
     icon: (
       <path
         d="M12 12a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM5 20a7 7 0 0114 0"
@@ -18,7 +18,7 @@ const PAINS = [
   },
   {
     title: "Your mind won’t switch off",
-    body: "You replay conversations, over-prepare and still feel one mistake away from being found out.",
+    body: "You replay conversations, over-prepare, and still feel one mistake away from being found out.",
     icon: (
       <path
         d="M9.5 8.5c.8-1.2 2-2 3.5-2 2.2 0 4 1.8 4 4 0 2.5-2 3.5-3.2 4.4-.7.5-1.3 1-1.3 2.1M12 19h.01"
@@ -43,7 +43,7 @@ const PAINS = [
   },
   {
     title: "You over-function to feel safe",
-    body: "You try to prevent conflict, disappointment or mistakes before they happen.",
+    body: "You try to head off conflict, disappointment, or mistakes before they happen.",
     icon: (
       <path
         d="M12 4v3M12 17v3M4 12h3M17 12h3M6.5 6.5l2 2M15.5 15.5l2 2M17.5 6.5l-2 2M8.5 15.5l-2 2"
@@ -55,7 +55,7 @@ const PAINS = [
   },
   {
     title: "You’ve lost touch with what you want",
-    body: "Everyone thinks you’re confident. You feel increasingly disconnected from yourself.",
+    body: "Everyone thinks you’re confident. You feel further from yourself.",
     icon: (
       <path
         d="M12 21s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.6-7 10-7 10z"
@@ -108,8 +108,8 @@ export function ProblemSection() {
           variants={item}
           className="mt-5 text-[15px] leading-relaxed text-plum-soft sm:text-base"
         >
-          High-achieving women rarely get stuck from a lack of ambition. They
-          get stuck because old loops keep running in the background.
+          High-achieving women rarely get stuck from a lack of ambition. More
+          often, old loops keep running in the background.
         </motion.p>
       </motion.div>
 

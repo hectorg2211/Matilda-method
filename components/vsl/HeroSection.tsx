@@ -5,17 +5,17 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
+import { BookClarityCall } from "./BookClarityCall";
 import {
   CLARITY_CTA,
-  CLARITY_HREF,
   MotionButton,
   easeOut,
 } from "./shared";
 import { VideoPlayer } from "./VideoPlayer";
 
 const DISCOVERIES = [
-  "Why knowing you should say no doesn’t necessarily make saying no easier.",
-  "Why successful women can still second-guess themselves despite years of evidence that they’re capable.",
+  "Why knowing you should say no still doesn’t make saying no easier.",
+  "Why capable women keep second-guessing themselves, even with years of proof behind them.",
   "The pattern I look for before trying to change the behaviour.",
 ] as const;
 
@@ -45,25 +45,23 @@ export function HeroSection() {
     <>
       <section
         id="top"
-        className="relative isolate min-h-[min(78vh,720px)] scroll-mt-24 overflow-hidden bg-cream pb-6 lg:min-h-[min(84vh,760px)] lg:pb-8"
+        className="relative isolate scroll-mt-24 overflow-hidden bg-cream pb-6 lg:min-h-[min(84vh,760px)] lg:pb-8"
       >
-        {/* Full-bleed portrait — right half on desktop, soft fade into cream */}
-        <div className="pointer-events-none absolute inset-0">
+        {/* Desktop-only full-bleed portrait */}
+        <div className="pointer-events-none absolute inset-0 hidden lg:block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/Matilda/hero-matilda.jpg"
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover object-[48%_40%] sm:object-[54%_38%] lg:left-[44%] lg:w-[56%] lg:object-[22%_45%]"
+            className="absolute inset-0 left-[44%] h-full w-[56%] object-cover object-[22%_45%]"
             fetchPriority="high"
           />
-          {/* Cream wash so copy stays readable and image feels blended */}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,243,234,0.92)_0%,rgba(250,243,234,0.55)_38%,rgba(250,243,234,0.88)_100%)] lg:bg-[linear-gradient(90deg,#faf3ea_0%,#faf3ea_46%,rgba(250,243,234,0.9)_56%,rgba(250,243,234,0.35)_68%,transparent_82%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(250,243,234,0.95))] lg:hidden" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#faf3ea_0%,#faf3ea_46%,rgba(250,243,234,0.9)_56%,rgba(250,243,234,0.35)_68%,transparent_82%)]" />
         </div>
 
         <motion.div
-          className="relative mx-auto flex min-h-[min(78vh,720px)] w-full max-w-6xl flex-col justify-center px-5 py-10 sm:px-8 sm:py-12 lg:min-h-[min(84vh,760px)] lg:py-14"
+          className="relative mx-auto flex w-full max-w-6xl flex-col px-5 py-8 sm:px-8 sm:py-10 lg:min-h-[min(84vh,760px)] lg:justify-center lg:py-14"
           variants={container}
           initial="hidden"
           animate="show"
@@ -90,17 +88,45 @@ export function HeroSection() {
               variants={item}
               className="mt-5 max-w-[34rem] text-pretty text-[15px] leading-relaxed text-plum-soft sm:text-[1.05rem] sm:leading-7"
             >
-              If you’ve tried boundaries, positive thinking or simply telling
-              yourself to “stop overthinking”, the problem may not be what you
-              think.
+              If you’ve tried boundaries, positive thinking, or telling yourself
+              to "stop overthinking", the problem may not be what you think.
             </motion.p>
+          </div>
 
+          {/* Mobile portrait — face visible, not under copy */}
+          <motion.div
+            variants={item}
+            className="relative mt-8 overflow-hidden rounded-[1.75rem] border border-gold-ink/15 bg-plum shadow-[0_16px_40px_rgba(61,24,48,0.1)] lg:hidden"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Matilda/hero-matilda.jpg"
+              alt="Matilda Martins-Ojo, founder of the Matilda Method"
+              className="aspect-[4/5] w-full scale-[1.22] object-cover object-[50%_22%] sm:aspect-[5/6] sm:object-[48%_20%]"
+              fetchPriority="high"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent,rgba(61,24,48,0.45))] p-4 pt-16 sm:p-5">
+              <div className="rounded-2xl border border-cream/20 bg-cream/95 px-4 py-3.5 shadow-[0_10px_28px_rgba(61,24,48,0.12)]">
+                <p
+                  className="text-[1.75rem] leading-none text-gold"
+                  aria-hidden="true"
+                >
+                  “
+                </p>
+                <p className="-mt-1.5 text-[15px] font-semibold leading-snug text-plum">
+                  You&apos;re not weak. You&apos;re running a pattern.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="relative mt-8 max-w-xl lg:mt-7 lg:max-w-[34rem]">
             <motion.div
               variants={item}
-              className="mt-7 rounded-2xl border border-gold-ink/15 bg-cream/80 px-5 py-5 backdrop-blur-[2px] sm:px-6 sm:py-6"
+              className="rounded-2xl border border-gold-ink/15 bg-white/90 px-5 py-5 sm:px-6 sm:py-6 lg:bg-cream/80 lg:backdrop-blur-[2px]"
             >
               <p className="text-[15px] font-semibold text-plum">
-                In this 20-minute video, discover:
+                In this 20-minute video:
               </p>
               <ul className="mt-3 space-y-2.5">
                 {DISCOVERIES.map((line) => (
@@ -149,13 +175,12 @@ export function HeroSection() {
                 </span>
                 Watch video
               </MotionButton>
-              <MotionButton
-                href={CLARITY_HREF}
+              <BookClarityCall
                 variant="secondary"
                 className="h-12 rounded-full px-6 text-[14px] sm:h-[3.25rem]"
               >
                 {CLARITY_CTA}
-              </MotionButton>
+              </BookClarityCall>
             </motion.div>
 
             <motion.p
@@ -174,22 +199,10 @@ export function HeroSection() {
               “
             </p>
             <p className="-mt-2 text-[15px] font-semibold leading-snug text-plum">
-              You’re not weak. You’re running a pattern.
+              You&apos;re not weak. You&apos;re running a pattern.
             </p>
           </motion.div>
         </motion.div>
-
-        {/* Mobile quote under hero copy */}
-        <div className="relative mx-auto max-w-6xl px-5 pb-4 sm:px-8 lg:hidden">
-          <div className="rounded-2xl border border-gold-ink/20 bg-cream/95 px-5 py-4 shadow-[0_10px_28px_rgba(61,24,48,0.08)]">
-            <p className="text-[2rem] leading-none text-gold" aria-hidden="true">
-              “
-            </p>
-            <p className="-mt-2 text-[15px] font-semibold leading-snug text-plum">
-              You’re not weak. You’re running a pattern.
-            </p>
-          </div>
-        </div>
       </section>
 
       <section className="relative bg-transparent px-5 pb-10 pt-10 sm:px-8 sm:pb-12 sm:pt-14">

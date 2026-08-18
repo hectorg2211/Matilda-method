@@ -7,32 +7,32 @@ const STAGES = [
   {
     step: "1",
     title: "Name the Loop",
-    body: "Identify the pattern influencing your decisions, not only the symptoms you keep managing.",
+    body: "See the pattern shaping your decisions, not only the symptoms you keep managing.",
   },
   {
     step: "2",
     title: "Understand the Pattern",
-    body: "Explore what triggers it, what reinforces it and why knowing better does not always lead to doing differently.",
+    body: "Look at what triggers it, what keeps it going, and why knowing better does not always change what you do.",
   },
   {
     step: "3",
     title: "Interrupt & Regulate",
-    body: "Create more space between the trigger and the automatic response.",
+    body: "Create a little more space between the trigger and the automatic response.",
   },
   {
     step: "4",
     title: "Practise New Responses",
-    body: "Rehearse more values-aligned ways of responding in real situations.",
+    body: "Try responses that fit your values in real situations, not only in theory.",
   },
   {
     step: "5",
     title: "Build Self-Trust",
-    body: "Strengthen evidence that you can make decisions, hold boundaries and respond differently.",
+    body: "Gather evidence that you can decide, hold a boundary, and respond differently.",
   },
   {
     step: "6",
     title: "Integrate",
-    body: "Apply the shift across work, relationships, confidence and leadership.",
+    body: "Carry the shift into work, relationships, confidence, and leadership.",
   },
 ] as const;
 
@@ -64,9 +64,9 @@ export function MechanismSection() {
           variants={item}
           className="mt-5 max-w-2xl text-[15px] leading-relaxed text-plum-soft sm:text-base"
         >
-          A practical, brain-informed coaching process designed to help you
-          understand the pattern, interrupt the automatic response and practise
-          a different way forward.
+          A practical coaching process that helps you understand the pattern,
+          interrupt the automatic response, and practise a different way
+          forward.
         </motion.p>
       </motion.div>
 

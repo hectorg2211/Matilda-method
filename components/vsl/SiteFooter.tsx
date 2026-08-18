@@ -3,11 +3,10 @@ export function SiteFooter() {
     <footer className="border-t border-cream/10 bg-plum px-5 py-10 text-cream/70 sm:px-8">
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-[12px] leading-relaxed sm:text-[13px]">
-          Matilda Method supports women building confidence, resilience and
-          mental fitness through brain-informed coaching. Results vary.
-          Coaching is not a substitute for clinical mental health care. Client
-          stories reflect personal experiences and do not guarantee future
-          outcomes.
+          Matilda Method helps women build confidence, resilience, and mental
+          fitness through coaching. Results vary. This is not a substitute for
+          clinical mental health care. Client stories are personal experiences
+          and do not guarantee outcomes.
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] text-cream/65">
           <a href="/privacy" className="underline-offset-2 hover:underline">
@@ -24,7 +23,7 @@ export function SiteFooter() {
           </a>
         </div>
         <p className="mt-5 text-[13px] text-gold">
-          Applications are currently open for 5 private coaching places.
+          5 private coaching places are open.
         </p>
         <p className="mt-4 text-[12px] text-cream/55">
           © 2026 Matilda Method. All rights reserved.

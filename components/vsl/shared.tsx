@@ -38,7 +38,7 @@ export function MediaPlaceholder({
 export const easeOut = [0.22, 1, 0.36, 1] as const;
 
 export const CLARITY_CTA = "Book your clarity call";
-export const CLARITY_HREF = "#apply";
+export const CLARITY_HREF = "/#apply";
 export const SUBSTACK_URL = "https://matildamethod.substack.com";
 export const PRIVATE_PLACES = 5;
 
@@ -136,30 +136,45 @@ export function MotionButton({
   className = "",
   target,
   rel,
+  ...calTrigger
 }: {
-  href: string;
+  href?: string;
   children: ReactNode;
   variant?: BtnVariant;
   className?: string;
   target?: string;
   rel?: string;
+  "data-cal-link"?: string;
+  "data-cal-namespace"?: string;
+  "data-cal-origin"?: string;
+  "data-cal-config"?: string;
 }) {
   const reduceMotion = useReducedMotion() ?? false;
+  const motionProps = {
+    whileHover: reduceMotion ? undefined : { scale: 1.02 },
+    whileTap: reduceMotion ? undefined : { scale: 0.975 },
+    transition: { type: "spring" as const, stiffness: 460, damping: 26 },
+    className: `${BTN_VARIANT[variant]} ${className}`,
+    ...calTrigger,
+  };
+  const label = (
+    <span className="relative z-[1] inline-flex items-center justify-center gap-[0.55rem]">
+      {children}
+    </span>
+  );
+
+  if (href) {
+    return (
+      <motion.a href={href} target={target} rel={rel} {...motionProps}>
+        {label}
+      </motion.a>
+    );
+  }
 
   return (
-    <motion.a
-      href={href}
-      target={target}
-      rel={rel}
-      whileHover={reduceMotion ? undefined : { scale: 1.02 }}
-      whileTap={reduceMotion ? undefined : { scale: 0.975 }}
-      transition={{ type: "spring", stiffness: 460, damping: 26 }}
-      className={`${BTN_VARIANT[variant]} ${className}`}
-    >
-      <span className="relative z-[1] inline-flex items-center justify-center gap-[0.55rem]">
-        {children}
-      </span>
-    </motion.a>
+    <motion.button type="button" {...motionProps}>
+      {label}
+    </motion.button>
   );
 }
 
