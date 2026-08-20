@@ -288,43 +288,36 @@ button.btn-link {
 }
 
 .cal-booker {
-  overflow: hidden;
+  width: 100%;
 }
 
-.cal-booker cal-inline,
 .cal-booker iframe {
   display: block;
   width: 100% !important;
-  max-height: none !important;
-}
-
-/* Clip Cal.com’s “powered by” strip; collapse the leftover space */
-.cal-booker cal-inline {
-  min-height: 38rem;
-  clip-path: inset(0 0 4.75rem 0);
-  margin-bottom: -4.75rem;
-}
-
-.cal-booker iframe {
-  min-height: 38rem !important;
+  border: 0;
 }
 
 @media (max-width: 767px) {
   .cal-booker {
-    /* Let the month grid grow instead of trapping it in a short scrollport */
-    overflow: visible;
-    padding-bottom: 0.75rem;
-  }
-
-  .cal-booker cal-inline {
-    /* 6-week month view + times; skip branding clip so the last row stays visible */
-    min-height: 48rem;
-    clip-path: none;
-    margin-bottom: 0;
+    min-height: 36rem;
   }
 
   .cal-booker iframe {
-    min-height: 48rem !important;
+    min-height: 36rem !important;
+  }
+}
+
+/* Clip Cal.com’s “powered by” strip on the desktop inline calendar */
+@media (min-width: 768px) {
+  .cal-booker {
+    overflow: hidden;
+  }
+
+  .cal-booker > * {
+    display: block;
+    width: 100%;
+    clip-path: inset(0 0 4.75rem 0);
+    margin-bottom: -4.75rem;
   }
 }
 

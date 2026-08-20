@@ -8,10 +8,11 @@ export type CalBooking = {
 export const CAL_NAMESPACE = "clarity-call";
 
 export const CAL_EMBED_CONFIG = {
-  layout: "month_view",
   theme: "light",
   hideBranding: "true",
+  hideEventTypeDetails: "true",
   useSlotsViewOnSmallScreen: "true",
+  "ui.autoscroll": "false",
 } as const;
 
 export const CAL_EMBED_CONFIG_JSON = JSON.stringify(CAL_EMBED_CONFIG);
@@ -20,7 +21,6 @@ export const CAL_UI = {
   theme: "light" as const,
   hideEventTypeDetails: true,
   hideBranding: true,
-  layout: "month_view" as const,
   styles: {
     branding: {
       brandColor: "#7a5c28",

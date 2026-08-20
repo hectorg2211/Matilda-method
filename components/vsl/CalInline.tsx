@@ -1,7 +1,7 @@
 "use client";
 
 import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   CAL_EMBED_CONFIG,
   CAL_NAMESPACE,
@@ -11,63 +11,25 @@ import {
 } from "@/lib/cal";
 
 const INLINE_NS = `${CAL_NAMESPACE}-inline`;
+const MOBILE_QUERY = "(max-width: 767px)";
 
-const INLINE_UNLOCK_CSS = `
-:host {
-  height: auto !important;
-  max-height: none !important;
-}
-iframe.cal-embed {
-  max-height: none !important;
-}
-@media (max-width: 767px) {
-  :host {
-    min-height: 48rem !important;
-    clip-path: none !important;
-  }
-  iframe.cal-embed {
-    min-height: 48rem !important;
-  }
-}
-`;
-
-function unlockCalInline(host: HTMLElement) {
-  host.style.height = "auto";
-  host.style.maxHeight = "none";
-
-  const root = host.shadowRoot;
-  if (!root) return;
-
-  const iframe = root.querySelector("iframe");
-  if (iframe instanceof HTMLElement) {
-    iframe.style.maxHeight = "none";
-  }
-
-  if (host.dataset.mmUnlock !== "true") {
-    host.dataset.mmUnlock = "true";
-    const style = document.createElement("style");
-    style.textContent = INLINE_UNLOCK_CSS;
-    root.appendChild(style);
-  }
-}
+type BookerLayout = "month_view" | "column_view";
 
 export function CalInline() {
+  const [layout, setLayout] = useState<BookerLayout | null>(null);
+
   useEffect(() => {
-    if (!cal) return;
+    const media = window.matchMedia(MOBILE_QUERY);
+    const sync = () => setLayout(media.matches ? "column_view" : "month_view");
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!cal || !layout) return;
 
     let cancelled = false;
-
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll("cal-inline").forEach((node) => {
-        unlockCalInline(node as HTMLElement);
-      });
-    });
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ["style"],
-    });
 
     void (async () => {
       const calApi = await getCalApi({
@@ -75,25 +37,40 @@ export function CalInline() {
         embedJsUrl: calEmbedJsUrl(cal.origin),
       });
       if (cancelled) return;
-      calApi("ui", CAL_UI);
+      calApi("ui", {
+        ...CAL_UI,
+        layout,
+      });
     })();
 
     return () => {
       cancelled = true;
-      observer.disconnect();
     };
-  }, []);
+  }, [layout]);
 
-  if (!cal) return null;
+  if (!cal || !layout) {
+    return (
+      <div className="flex items-center justify-center px-5 py-10">
+        <span className="text-[14px] text-plum-soft/70">Loading times…</span>
+      </div>
+    );
+  }
 
   return (
     <Cal
+      key={layout}
       namespace={INLINE_NS}
       calLink={cal.link}
       calOrigin={cal.origin}
       embedJsUrl={calEmbedJsUrl(cal.origin)}
-      config={CAL_EMBED_CONFIG}
-      style={{ width: "100%", height: "auto", overflow: "visible" }}
+      config={{
+        ...CAL_EMBED_CONFIG,
+        layout,
+        hideEventTypeDetails: "true",
+        useSlotsViewOnSmallScreen: "true",
+        "ui.autoscroll": "false",
+      }}
+      style={{ width: "100%", overflow: "visible" }}
     />
   );
 }

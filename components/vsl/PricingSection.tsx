@@ -214,9 +214,9 @@ export function PricingSection() {
       {cal ? (
         <div
           id="apply"
-          className="mt-12 scroll-mt-28 overflow-x-clip rounded-[1.75rem] border border-gold/25 bg-cream text-plum shadow-[0_24px_60px_rgba(0,0,0,0.22)] md:mt-16"
+          className="mt-12 scroll-mt-28 overflow-hidden rounded-[1.75rem] border border-gold/25 bg-cream text-plum shadow-[0_24px_60px_rgba(0,0,0,0.22)] md:mt-16"
         >
-          <div className="border-b border-gold/20 bg-gold-light/35 px-5 py-6 text-center sm:px-8 sm:py-7">
+          <div className="rounded-t-[1.75rem] border-b border-gold/20 bg-gold-light/35 px-5 py-6 text-center sm:px-8 sm:py-7">
             <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-plum">
               Private clarity call
             </p>
