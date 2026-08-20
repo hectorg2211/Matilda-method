@@ -24,7 +24,7 @@ export default async function CheckoutSuccessPage({
         session.customer_email ??
         null;
       if (session.metadata?.plan === "3_month") {
-        planLabel = "Private 1:1 coaching (3-month plan)";
+        planLabel = "Private 1:1 coaching (3 × £499 plan)";
       }
 
       const subscriptionId =

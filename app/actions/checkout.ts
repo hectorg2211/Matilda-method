@@ -2,16 +2,20 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import type Stripe from "stripe";
 import {
+  checkoutIntegrationId,
   getSiteOrigin,
   getStripe,
+  isCheckoutPlan,
   PRIVATE_COACHING,
+  type CheckoutPlan,
 } from "@/lib/stripe";
 
-export type CheckoutPlan = "full" | "plan";
+export type { CheckoutPlan };
 
 export async function startPrivateCoachingCheckout(plan: CheckoutPlan) {
-  if (plan !== "full" && plan !== "plan") {
+  if (!isCheckoutPlan(plan)) {
     throw new Error("Invalid checkout plan");
   }
 
@@ -22,42 +26,64 @@ export async function startPrivateCoachingCheckout(plan: CheckoutPlan) {
   const successUrl = `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`;
   const cancelUrl = `${origin}/#offer`;
 
-  if (plan === "full") {
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: "gbp",
-            unit_amount: PRIVATE_COACHING.fullAmountPence,
-            product_data: {
-              name: PRIVATE_COACHING.name,
-              description: PRIVATE_COACHING.description,
-            },
+  const session = await stripe.checkout.sessions.create(
+    plan === "plan"
+      ? paymentPlanSession(successUrl, cancelUrl)
+      : payInFullSession(successUrl, cancelUrl),
+  );
+
+  if (!session.url) {
+    throw new Error("Stripe did not return a checkout URL");
+  }
+
+  redirect(session.url);
+}
+
+function payInFullSession(
+  successUrl: string,
+  cancelUrl: string,
+): Stripe.Checkout.SessionCreateParams {
+  return {
+    mode: "payment",
+    locale: "en-GB",
+    line_items: [
+      {
+        quantity: 1,
+        price_data: {
+          currency: "gbp",
+          unit_amount: PRIVATE_COACHING.fullAmountPence,
+          product_data: {
+            name: PRIVATE_COACHING.name,
+            description: PRIVATE_COACHING.description,
           },
         },
-      ],
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-      billing_address_collection: "auto",
+      },
+    ],
+    success_url: successUrl,
+    cancel_url: cancelUrl,
+    billing_address_collection: "auto",
+    customer_creation: "always",
+    integration_identifier: checkoutIntegrationId("full"),
+    metadata: {
+      offer: "private_coaching",
+      plan: "full",
+    },
+    payment_intent_data: {
       metadata: {
         offer: "private_coaching",
         plan: "full",
       },
-    });
+    },
+  };
+}
 
-    if (!session.url) {
-      throw new Error("Stripe did not return a checkout URL");
-    }
-
-    redirect(session.url);
-  }
-
-  // 3 monthly payments of £499 — cancel_at is set after Checkout
-  // (Checkout Sessions do not accept subscription_data.cancel_at).
-  const session = await stripe.checkout.sessions.create({
+function paymentPlanSession(
+  successUrl: string,
+  cancelUrl: string,
+): Stripe.Checkout.SessionCreateParams {
+  return {
     mode: "subscription",
+    locale: "en-GB",
     line_items: [
       {
         quantity: 1,
@@ -81,15 +107,10 @@ export async function startPrivateCoachingCheckout(plan: CheckoutPlan) {
     success_url: successUrl,
     cancel_url: cancelUrl,
     billing_address_collection: "auto",
+    integration_identifier: checkoutIntegrationId("plan"),
     metadata: {
       offer: "private_coaching",
       plan: "3_month",
     },
-  });
-
-  if (!session.url) {
-    throw new Error("Stripe did not return a checkout URL");
-  }
-
-  redirect(session.url);
+  };
 }

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "How Matilda Method collects, uses, and looks after personal information for the website, clarity calls, and private coaching.",
 };
 
-const UPDATED = "18 August 2026";
+const UPDATED = "20 August 2026";
 
 export default function PrivacyPage() {
   return (
@@ -41,8 +41,9 @@ export default function PrivacyPage() {
             take to do the work properly
           </li>
           <li>
-            Payment and invoicing details if you enrol in coaching (card
-            details are not stored on this website)
+            Payment details if you enrol. Card numbers are taken by Stripe, not
+            stored on this website. If you choose Klarna or Affirm, they collect
+            what they need to decide on finance.
           </li>
           <li>
             Technical information that our hosting provider may log, such as IP
@@ -92,6 +93,15 @@ export default function PrivacyPage() {
           . Unsubscribing is done through Substack, not through this site.
         </p>
         <p>
+          Private coaching payments are processed by Stripe under{" "}
+          <a href="https://stripe.com/privacy" rel="noopener noreferrer">
+            Stripe’s privacy policy
+          </a>
+          . If you choose to pay over time, Klarna or Affirm (whichever you
+          select at checkout) will also process your information under their own
+          terms, including a credit check where they require one.
+        </p>
+        <p>
           The site is hosted by a professional web host. They process limited
           technical data so the pages can load and stay available.
         </p>
@@ -113,7 +123,11 @@ export default function PrivacyPage() {
         </p>
         <ul>
           <li>Cal.com, for scheduling</li>
-          <li>Email, hosting, and payment or accounting tools</li>
+          <li>
+            Stripe, for checkout. Klarna or Affirm, if you choose to pay through
+            them
+          </li>
+          <li>Email, hosting, and accounting tools</li>
           <li>Professional advisers, such as an accountant, under confidence</li>
           <li>
             A person or authority the law requires, or where I reasonably

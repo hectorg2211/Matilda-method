@@ -1,3 +1,4 @@
+import { randomBytes } from "crypto";
 import Stripe from "stripe";
 
 export const PRIVATE_COACHING = {
@@ -8,6 +9,14 @@ export const PRIVATE_COACHING = {
   planAmountPence: 49_900,
   planMonths: 3,
 } as const;
+
+export type CheckoutPlan = "full" | "plan";
+
+const CHECKOUT_PLANS: readonly CheckoutPlan[] = ["full", "plan"];
+
+export function isCheckoutPlan(value: string): value is CheckoutPlan {
+  return (CHECKOUT_PLANS as readonly string[]).includes(value);
+}
 
 export function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;
@@ -28,6 +37,24 @@ export function getSiteOrigin(headerOrigin: string | null) {
   );
 }
 
+/** Tags Checkout Sessions in the Stripe Dashboard. Suffix is 8 random letters. */
+export function checkoutIntegrationId(plan: CheckoutPlan) {
+  const suffix = randomBytes(8)
+    .reduce((letters, byte) => letters + String.fromCharCode(97 + (byte % 26)), "");
+  return `matilda-coaching-${plan}-${suffix}`;
+}
+
+/**
+ * Three monthly invoices: start, +1 month, +2 months.
+ * Cancel during the third period so a fourth invoice is never created.
+ */
+export function paymentPlanCancelAt(startUnix: number) {
+  const cancel = new Date(startUnix * 1000);
+  cancel.setUTCMonth(cancel.getUTCMonth() + PRIVATE_COACHING.planMonths - 1);
+  cancel.setUTCDate(cancel.getUTCDate() + 1);
+  return Math.floor(cancel.getTime() / 1000);
+}
+
 /** Checkout can't set cancel_at — apply it once the subscription exists. */
 export async function ensurePaymentPlanEnds(subscriptionId: string) {
   const stripe = getStripe();
@@ -37,11 +64,7 @@ export async function ensurePaymentPlanEnds(subscriptionId: string) {
     return;
   }
 
-  const cancelAt =
-    subscription.start_date +
-    PRIVATE_COACHING.planMonths * 30 * 24 * 60 * 60;
-
   await stripe.subscriptions.update(subscriptionId, {
-    cancel_at: cancelAt,
+    cancel_at: paymentPlanCancelAt(subscription.start_date),
   });
 }

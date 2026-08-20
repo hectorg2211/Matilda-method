@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Terms for using the Matilda Method website, booking a clarity call, and private 1:1 coaching.",
 };
 
-const UPDATED = "18 August 2026";
+const UPDATED = "20 August 2026";
 
 export default function TermsPage() {
   return (
@@ -71,9 +71,10 @@ export default function TermsPage() {
         <p>
           Private coaching is a 6-week 1:1 programme. What is included, the
           fee, and how we work together are confirmed in writing before you
-          enrol. The current published investment is £1,497, with a payment
-          plan available; the figure that applies is the one we agree at
-          enrolment.
+          enrol. The current published investment is £1,497. You may pay that
+          in one checkout (card, or Klarna / Affirm if they approve you), or in
+          three monthly instalments of £499; the figure that applies is the one
+          we agree at enrolment.
         </p>
         <p>
           Places are limited. A place is held once we have agreed terms and any
@@ -88,9 +89,14 @@ export default function TermsPage() {
 
       <LegalSection title="Fees, cooling-off, and cancellation">
         <p>
-          Fees are due as we agree (in full or by instalments). This website
-          does not take card payments itself. Payment instructions are given
-          when you enrol.
+          Fees are due as we agree. Checkout on this site is handled by Stripe.
+          The £1,497 checkout lets you pay by card or, if you are approved, with
+          Klarna or Affirm. Paying with Klarna or Affirm is a separate agreement
+          with them; they pay the coaching fee (less their fees) and you repay
+          them. You can instead pay in three monthly payments of £499 on a card
+          Stripe stores for months two and three. If a later instalment fails or
+          you cancel that plan, the remaining balance still due may be pursued
+          and coaching may pause until it is settled.
         </p>
         <p>
           If you buy coaching at a distance (online or by email), UK consumer

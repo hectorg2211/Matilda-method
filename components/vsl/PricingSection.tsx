@@ -109,7 +109,9 @@ export function PricingSection() {
           <p className="mt-4 font-semibold tracking-[-0.03em] text-5xl text-cream sm:text-6xl">
             £1,497
           </p>
-          <p className="mt-3 text-[15px] text-cream/75">Payment plan available</p>
+          <p className="mt-3 text-[15px] text-cream/75">
+            Pay in full, or in 3 × £499
+          </p>
           <div className="mt-6 flex items-center justify-center gap-1.5" aria-hidden="true">
             {Array.from({ length: PRIVATE_PLACES }).map((_, i) => (
               <span
@@ -139,17 +141,22 @@ export function PricingSection() {
               plan="full"
               className="btn btn-gold h-12 w-full rounded-full px-6 text-[13px] font-semibold uppercase tracking-[0.04em] sm:text-[14px]"
             >
-              Pay £1,497 in full
+              Pay £1,497
             </BuyPrivateCoaching>
-            <BuyPrivateCoaching
-              plan="plan"
-              className="btn btn-secondary h-12 w-full rounded-full border-cream/25 bg-transparent px-6 text-[13px] font-semibold text-cream sm:text-[14px]"
-            >
-              Pay in 3 × £499
-            </BuyPrivateCoaching>
+            <div>
+              <BuyPrivateCoaching
+                plan="plan"
+                className="btn btn-secondary h-12 w-full rounded-full border-cream/25 bg-transparent px-6 text-[13px] font-semibold text-cream sm:text-[14px]"
+              >
+                Pay in 3 × £499
+              </BuyPrivateCoaching>
+              <p className="mt-1.5 text-[12px] leading-relaxed text-cream/65">
+                Three monthly card payments billed by us. Months two and three
+                stay due.
+              </p>
+            </div>
             <p className="text-[12px] leading-relaxed text-cream/65">
-              Secure checkout with Stripe. The payment plan bills monthly for
-              three months.
+              Secure checkout with Stripe.
             </p>
           </div>
         </motion.div>
@@ -207,7 +214,7 @@ export function PricingSection() {
       {cal ? (
         <div
           id="apply"
-          className="mt-12 scroll-mt-28 overflow-x-hidden rounded-[1.75rem] border border-gold/25 bg-cream text-plum shadow-[0_24px_60px_rgba(0,0,0,0.22)] md:mt-16"
+          className="mt-12 scroll-mt-28 overflow-x-clip rounded-[1.75rem] border border-gold/25 bg-cream text-plum shadow-[0_24px_60px_rgba(0,0,0,0.22)] md:mt-16"
         >
           <div className="border-b border-gold/20 bg-gold-light/35 px-5 py-6 text-center sm:px-8 sm:py-7">
             <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-plum">

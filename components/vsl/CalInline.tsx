@@ -18,7 +18,16 @@ const INLINE_UNLOCK_CSS = `
   max-height: none !important;
 }
 iframe.cal-embed {
-  clip-path: inset(0 0 4.75rem 0);
+  max-height: none !important;
+}
+@media (max-width: 767px) {
+  :host {
+    min-height: 48rem !important;
+    clip-path: none !important;
+  }
+  iframe.cal-embed {
+    min-height: 48rem !important;
+  }
 }
 `;
 
@@ -27,7 +36,14 @@ function unlockCalInline(host: HTMLElement) {
   host.style.maxHeight = "none";
 
   const root = host.shadowRoot;
-  if (root && host.dataset.mmUnlock !== "true") {
+  if (!root) return;
+
+  const iframe = root.querySelector("iframe");
+  if (iframe instanceof HTMLElement) {
+    iframe.style.maxHeight = "none";
+  }
+
+  if (host.dataset.mmUnlock !== "true") {
     host.dataset.mmUnlock = "true";
     const style = document.createElement("style");
     style.textContent = INLINE_UNLOCK_CSS;
@@ -77,7 +93,7 @@ export function CalInline() {
       calOrigin={cal.origin}
       embedJsUrl={calEmbedJsUrl(cal.origin)}
       config={CAL_EMBED_CONFIG}
-      style={{ width: "100%" }}
+      style={{ width: "100%", height: "auto", overflow: "visible" }}
     />
   );
 }
