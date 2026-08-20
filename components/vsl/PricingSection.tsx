@@ -169,10 +169,10 @@ export function PricingSection() {
             Ready for the next step?
           </p>
           <h3 className="mt-3 text-2xl font-semibold tracking-[-0.02em] sm:text-[1.75rem]">
-            Let’s find the pattern that’s keeping you stuck.
+            Let us find the pattern that is keeping you stuck.
           </h3>
           <p className="mt-4 text-[15px] leading-relaxed text-cream/80">
-            On a 30-minute clarity call, we’ll look at what’s going on for you,
+            On a 30-minute clarity call, we will look at what is going on for you,
             what you want to change, and whether six weeks of private coaching
             is a good fit for both of us.
           </p>
@@ -224,7 +224,7 @@ export function PricingSection() {
               Pick a time that works
             </h3>
             <p className="mx-auto mt-2 max-w-xl text-[14px] leading-relaxed text-plum-soft">
-              30 minutes, no charge. We’ll see whether six weeks of private
+              30 minutes, no charge. We will see whether six weeks of private
               coaching is the right fit, both ways.
             </p>
           </div>

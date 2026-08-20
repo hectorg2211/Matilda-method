@@ -17,7 +17,7 @@ const PAINS = [
     ),
   },
   {
-    title: "Your mind won’t switch off",
+    title: "Your mind will not switch off",
     body: "You replay conversations, over-prepare, and still feel one mistake away from being found out.",
     icon: (
       <path
@@ -29,8 +29,8 @@ const PAINS = [
     ),
   },
   {
-    title: "Success didn’t quiet the noise",
-    body: "On paper things look fine. Inside, you’re tired of holding it all together.",
+    title: "Success did not quiet the noise",
+    body: "On paper things look fine. Inside, you are tired of holding it all together.",
     icon: (
       <path
         d="M8 14l2.2-6.5L12.5 12l2-4.5L17 14M6 17h12"
@@ -54,8 +54,8 @@ const PAINS = [
     ),
   },
   {
-    title: "You’ve lost touch with what you want",
-    body: "Everyone thinks you’re confident. You feel further from yourself.",
+    title: "You have lost touch with what you want",
+    body: "Everyone thinks you are confident. You feel further from yourself.",
     icon: (
       <path
         d="M12 21s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.6-7 10-7 10z"
@@ -102,7 +102,7 @@ export function ProblemSection() {
           variants={item}
           className="mt-4 text-3xl font-semibold tracking-[-0.02em] text-plum sm:text-4xl md:text-[2.75rem]"
         >
-          You’re not weak. You’re running a pattern.
+          You are not weak. You are running a pattern.
         </motion.h2>
         <motion.p
           variants={item}
@@ -121,18 +121,24 @@ export function ProblemSection() {
         viewport={{ once: true, amount: 0.12 }}
       >
         {PAINS.map((pain) => (
-          <motion.article key={pain.title} variants={item} className="text-left">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-gold-ink/20 bg-white text-plum">
+          <motion.article
+            key={pain.title}
+            variants={item}
+            className="flex items-start gap-3.5 text-left sm:block"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold-ink/20 bg-white text-plum">
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
                 {pain.icon}
               </svg>
             </div>
-            <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em] text-plum">
-              {pain.title}
-            </h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-plum-soft">
-              {pain.body}
-            </p>
+            <div>
+              <h3 className="text-lg font-semibold tracking-[-0.02em] text-plum sm:mt-4">
+                {pain.title}
+              </h3>
+              <p className="mt-1.5 text-[15px] leading-relaxed text-plum-soft sm:mt-2">
+                {pain.body}
+              </p>
+            </div>
           </motion.article>
         ))}
       </motion.div>

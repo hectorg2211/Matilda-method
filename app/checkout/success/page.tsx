@@ -47,7 +47,7 @@ export default async function CheckoutSuccessPage({
           Payment received
         </p>
         <h1 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-plum sm:text-4xl">
-          You&apos;re in.
+          You are in.
         </h1>
         <p className="mt-4 text-[15px] leading-relaxed text-plum-soft">
           Thanks for enrolling in {planLabel}.

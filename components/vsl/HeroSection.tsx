@@ -14,7 +14,7 @@ import {
 import { VideoPlayer } from "./VideoPlayer";
 
 const DISCOVERIES = [
-  "Why knowing you should say no still doesn’t make saying no easier.",
+  "Why knowing you should say no still does not make saying no easier.",
   "Why capable women keep second-guessing themselves, even with years of proof behind them.",
   "The pattern I look for before trying to change the behaviour.",
 ] as const;
@@ -88,7 +88,7 @@ export function HeroSection() {
               variants={item}
               className="mt-5 max-w-[34rem] text-pretty text-[15px] leading-relaxed text-plum-soft sm:text-[1.05rem] sm:leading-7"
             >
-              If you’ve tried boundaries, positive thinking, or telling yourself
+              If you have tried boundaries, positive thinking, or telling yourself
               to "stop overthinking", the problem may not be what you think.
             </motion.p>
           </div>
@@ -114,7 +114,7 @@ export function HeroSection() {
                   “
                 </p>
                 <p className="-mt-1.5 text-[15px] font-semibold leading-snug text-plum">
-                  You&apos;re not weak. You&apos;re running a pattern.
+                  You are not weak. You are running a pattern.
                 </p>
               </div>
             </div>
@@ -199,7 +199,7 @@ export function HeroSection() {
               “
             </p>
             <p className="-mt-2 text-[15px] font-semibold leading-snug text-plum">
-              You&apos;re not weak. You&apos;re running a pattern.
+              You are not weak. You are running a pattern.
             </p>
           </motion.div>
         </motion.div>
