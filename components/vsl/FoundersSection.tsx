@@ -55,7 +55,7 @@ export function FoundersSection() {
               Matilda Martins-Ojo
             </h2>
             <p className="mt-2 text-[15px] font-medium text-plum-soft">
-              Human Performance Coach | Founder, Matilda Method
+              Women’s Performance & Leadership Coach | Founder, Matilda Method
             </p>
 
             <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-plum-soft">

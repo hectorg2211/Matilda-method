@@ -8,10 +8,8 @@ import {
 import { BookClarityCall } from "./BookClarityCall";
 import {
   CLARITY_CTA,
-  MotionButton,
   easeOut,
 } from "./shared";
-import { VideoPlayer } from "./VideoPlayer";
 
 const DISCOVERIES = [
   "Why knowing you should say no still does not make saying no easier.",
@@ -160,23 +158,7 @@ export function HeroSection() {
               variants={item}
               className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center"
             >
-              <MotionButton
-                href="#vsl"
-                className="group h-12 rounded-full px-7 text-[13px] uppercase tracking-[0.04em] sm:h-[3.25rem] sm:px-8 sm:text-[14px]"
-              >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-cream/35 transition-transform duration-300 group-hover:scale-110">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="ml-0.5 h-3 w-3 fill-cream"
-                    aria-hidden="true"
-                  >
-                    <path d="M8 5.14v13.72L19 12 8 5.14z" />
-                  </svg>
-                </span>
-                Watch video
-              </MotionButton>
               <BookClarityCall
-                variant="secondary"
                 className="h-12 rounded-full px-6 text-[14px] sm:h-[3.25rem]"
               >
                 {CLARITY_CTA}
@@ -203,12 +185,6 @@ export function HeroSection() {
             </p>
           </motion.div>
         </motion.div>
-      </section>
-
-      <section className="relative bg-transparent px-5 pb-10 pt-10 sm:px-8 sm:pb-12 sm:pt-14">
-        <div id="vsl" className="mx-auto w-full max-w-6xl scroll-mt-24">
-          <VideoPlayer />
-        </div>
       </section>
     </>
   );
